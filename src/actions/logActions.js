@@ -6,24 +6,23 @@ import {
   DELETE_LOG,
   SET_CURRENT,
   CLEAR_CURRENT,
-  UPDATE_LOG
+  UPDATE_LOG,
+  SEARCH_LOGS
 } from './types'
 
-/* export const getLogs = () => {
-  return async (dispatch, getState) => {
-    setLoading()
+// export const getLogs = () => {
+//   return async dispatch => {
+//     setLoading();
+//     const res = await fetch('/logs');
+//     const data = await res.json();
+//     dispatch({
+//       type: GET_LOGS,
+//       payload: data
+//    });
+//   };
+// };
 
-    const res = await fetch('/logs')
-    const data = await res.json()
-
-    dispatch({
-      type: GET_LOGS,
-      payload: data
-    })
-  }
-} */
-
-// Get the logs
+// Get logs from server
 export const getLogs = () => async dispatch => {
   try {
     setLoading()
@@ -35,15 +34,15 @@ export const getLogs = () => async dispatch => {
       type: GET_LOGS,
       payload: data
     })
-  } catch (error) {
+  } catch (err) {
     dispatch({
       type: LOGS_ERROR,
-      payload: error.response.data
+      payload: err.response.statusText
     })
   }
 }
 
-// Add a new log
+// Add new log
 export const addLog = log => async dispatch => {
   try {
     setLoading()
@@ -55,21 +54,22 @@ export const addLog = log => async dispatch => {
         'Content-Type': 'application/json'
       }
     })
+
     const data = await res.json()
 
     dispatch({
       type: ADD_LOG,
       payload: data
     })
-  } catch (error) {
+  } catch (err) {
     dispatch({
       type: LOGS_ERROR,
-      payload: error.response.data
+      payload: err.response.statusText
     })
   }
 }
 
-// Delete a log
+// Delete log from server
 export const deleteLog = id => async dispatch => {
   try {
     setLoading()
@@ -82,15 +82,15 @@ export const deleteLog = id => async dispatch => {
       type: DELETE_LOG,
       payload: id
     })
-  } catch (error) {
+  } catch (err) {
     dispatch({
       type: LOGS_ERROR,
-      payload: error.response.data
+      payload: err.response.statusText
     })
   }
 }
 
-// Update a log
+// Update log on server
 export const updateLog = log => async dispatch => {
   try {
     setLoading()
@@ -102,16 +102,37 @@ export const updateLog = log => async dispatch => {
         'Content-Type': 'application/json'
       }
     })
+
     const data = await res.json()
 
     dispatch({
       type: UPDATE_LOG,
       payload: data
     })
-  } catch (error) {
+  } catch (err) {
     dispatch({
       type: LOGS_ERROR,
-      payload: error.response.data
+      payload: err.response.statusText
+    })
+  }
+}
+
+// Search server logs
+export const searchLogs = text => async dispatch => {
+  try {
+    setLoading()
+
+    const res = await fetch(`/logs?q=${text}`)
+    const data = await res.json()
+
+    dispatch({
+      type: SEARCH_LOGS,
+      payload: data
+    })
+  } catch (err) {
+    dispatch({
+      type: LOGS_ERROR,
+      payload: err.response.statusText
     })
   }
 }
@@ -124,13 +145,14 @@ export const setCurrentLog = log => {
   }
 }
 
-// Clearcurrent log
-export const clearCurrentLog = () => {
+// Clear current log
+export const clearCurrent = () => {
   return {
     type: CLEAR_CURRENT
   }
 }
 
+// Set loading to true
 export const setLoading = () => {
   return {
     type: SET_LOADING

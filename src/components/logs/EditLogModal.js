@@ -39,7 +39,7 @@ const EditLogModal = ({ current, updateLog }) => {
   }
 
   return (
-    <div id='add-log-modal' className='modal' style={modalStyle}>
+    <div id='edit-log-modal' className='modal' style={modalStyle}>
       <div className='modal-content'>
         <h4>Enter System Log</h4>
         <div className='row'>
@@ -50,9 +50,6 @@ const EditLogModal = ({ current, updateLog }) => {
               value={message}
               onChange={e => setMessage(e.target.value)}
             />
-            <label htmlFor='message' className='active'>
-              Log message
-            </label>
           </div>
         </div>
         <div className='row'>

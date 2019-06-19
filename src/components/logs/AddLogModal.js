@@ -31,7 +31,7 @@ const AddLogModal = ({ addLog }) => {
   }
 
   return (
-    <div id='edit-log-modal' className='modal' style={modalStyle}>
+    <div id='add-log-modal' className='modal' style={modalStyle}>
       <div className='modal-content'>
         <h4>Enter System Log</h4>
         <div className='row'>
@@ -71,8 +71,8 @@ const AddLogModal = ({ addLog }) => {
                   value={attention}
                   onChange={e => setAttention(!attention)}
                 />
+                <span>Needs Attention</span>
               </label>
-              <span>Needs attention</span>
             </p>
           </div>
         </div>
