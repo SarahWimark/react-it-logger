@@ -42,9 +42,6 @@ const AddLogModal = ({ addLog }) => {
               value={message}
               onChange={e => setMessage(e.target.value)}
             />
-            <label htmlFor='message' className='active'>
-              Log message
-            </label>
           </div>
         </div>
         <div className='row'>
